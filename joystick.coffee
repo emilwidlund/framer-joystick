@@ -1,10 +1,10 @@
-{App} = require './joystick/src/App.coffee'
-{FocusSystem} = require './joystick/src/FocusSystem.coffee'
-{Focusable} = require './joystick/src/Focusable.coffee'
-{Gamepad} = require './joystick/src/Gamepad.coffee'
-{Transitions} = require './joystick/src/Transitions.coffee'
-{View} = require './joystick/src/View.coffee'
-{Grid} = require './joystick/src/Grid.coffee'
+{App} = require './src/App.coffee'
+{FocusSystem} = require './src/FocusSystem.coffee'
+{Focusable} = require './src/Focusable.coffee'
+{Gamepad} = require './src/Gamepad.coffee'
+{Transitions} = require './src/Transitions.coffee'
+{View} = require './src/View.coffee'
+{Grid} = require './src/Grid.coffee'
 
 joystick =
     App: App
