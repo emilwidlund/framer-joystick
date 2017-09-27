@@ -1,9 +1,9 @@
 # framer-joystick
 A Framer module for Gamepad-driven UI prototypes.
 
-<a href='https://open.framermodules.com/<MODULE NAME>'>
+<a href='https://open.framermodules.com/framer-joystick'>
     <img alt='Install with Framer Modules'
-    src='https://www.framermodules.com/assets/badge@2x.png' width='160' height='40' />
+    src='https://www.framermodules.com/assets/badge@2x.png' width='160' height='40' marginTop='10px' marginBottom='15px' />
 </a>
 
 
