@@ -2,7 +2,7 @@
     "name": "Framer Joystick",
     "description": "Framer Joystick makes it easy to create Gamepad-driven UI prototypes",
     "author": "Emil Widlund",
-
+    "require": "{App, View, Gamepad, Focusable, Transitions, Grid} = require 'joystick",
     "install": [
         "joystick.coffee", 
         "/src/ActionHandler.coffee", 
@@ -17,6 +17,5 @@
         "/src/View.coffee"
     ],
     "example": "example.coffee",
-
     "thumb": "thumb.png"
 }
