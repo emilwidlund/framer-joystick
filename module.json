@@ -1,0 +1,22 @@
+{
+    "name": "Framer Joystick",
+    "description": "Framer Joystick makes it easy to create Gamepad-driven UI prototypes",
+    "author": "Emil Widlund",
+
+    "install": [
+        "joystick.coffee", 
+        "/src/ActionHandler.coffee", 
+        "/src/App.coffee", 
+        "/src/Background.coffee", 
+        "/src/Broadcaster.coffee", 
+        "/src/Focusable.coffee", 
+        "/src/FocusSystem.coffee", 
+        "/src/Gamepad.coffee", 
+        "/src/Grid.coffee", 
+        "/src/Transitions.coffee", 
+        "/src/View.coffee"
+    ],
+    "example": "example.coffee",
+
+    "thumb": "thumb.png"
+}
