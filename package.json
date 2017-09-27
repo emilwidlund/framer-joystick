@@ -1,0 +1,11 @@
+{
+  "name": "framer-joystick",
+  "version": "0.0.1",
+  "description": "Joystick is a Framer-module that makes it easy to create UI's tailored for Gamepad interactions.",
+  "main": "index.coffee",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Emil Widlund",
+  "license": "ISC"
+}
