@@ -1,8 +1,6 @@
 # A more thorough introduction of this module can be found here:
 # https://blog.framer.com/introducing-framer-joystick-28359287bef0
 
-{App, View, Focusable, Grid} = require 'joystick'
-
 class CardCarousel extends ScrollComponent
     constructor: (properties={}) ->
         super properties
