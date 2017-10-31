@@ -6,6 +6,8 @@ Function::define = (prop, desc) ->
 class GamepadSystem extends Framer.EventEmitter
     constructor: ->
 
+        super()
+
         @connectedGamepad = undefined
         @loopRequest = undefined
         @pollingGP = undefined
