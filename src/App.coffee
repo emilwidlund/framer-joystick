@@ -5,6 +5,9 @@
 {Background} = require './Background.coffee'
 _ = Framer._
 
+# Disable Hints
+Framer.Extras.Hints.disable()
+
 class exports.App extends FlowComponent
 
     constructor: (properties={}) ->
@@ -26,6 +29,10 @@ class exports.App extends FlowComponent
         @on 'transitionhalt', (previousView, nextView, direction) ->
             if previousView
                 previousView.visible = false
+        
+        @on 'transitionend', (previousView, nextView, direction) ->
+            sc = @_tempScroll
+            sc.content.draggable.enabled = false
 
     transitionToView: (view, transition) ->
         if transition
