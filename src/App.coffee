@@ -8,7 +8,7 @@ _ = Framer._
 # Disable Hints
 Framer.Extras.Hints.disable()
 
-class exports.App extends FlowComponent
+class App extends FlowComponent
 
     constructor: (properties={}) ->
 
@@ -54,3 +54,5 @@ class exports.App extends FlowComponent
 
         @emit 'change:view', view
         Broadcaster.viewTransitionEvent(view)
+
+exports.App = new App()
