@@ -11,7 +11,7 @@ class ActionStore
         @focusableActions = []
         @viewActions = []
 
-        window.addEventListener 'keydown', (event) ->
+        window.addEventListener 'keydown', (event) =>
             if event.keyCode == 13
                 action = _.find @actions, {keyCode: 0}
                 if action
