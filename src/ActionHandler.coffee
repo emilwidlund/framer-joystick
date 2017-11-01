@@ -1,4 +1,4 @@
-{Gamepad} = require './Gamepad.coffee'
+{Gamepad} = require './FocusSystem.coffee'
 {Broadcaster} = require './Broadcaster.coffee'
 _ = Framer._
 

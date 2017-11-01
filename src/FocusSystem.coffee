@@ -1,6 +1,8 @@
-{Gamepad} = require './Gamepad.coffee'
+{GamepadSystem} = require './Gamepad.coffee'
 {Broadcaster} = require './Broadcaster.coffee'
 _ = Framer._
+
+exports.Gamepad = Gamepad = new GamepadSystem(true)
 
 class exports.FocusSystem 
     constructor: (app) ->

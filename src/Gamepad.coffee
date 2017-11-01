@@ -3,8 +3,8 @@ _ = Framer._
 Function::define = (prop, desc) ->
     Object.defineProperty this.prototype, prop, desc
 
-class GamepadSystem extends Framer.EventEmitter
-    constructor: ->
+class exports.GamepadSystem extends Framer.EventEmitter
+    constructor: (throttle) ->
 
         super()
 
@@ -23,7 +23,7 @@ class GamepadSystem extends Framer.EventEmitter
         @eventsInSequence = 0
 
         # Should events be throttled?
-        @throttled = true
+        @throttled = throttle
         
         if navigator.getGamepads()[0]
             @connectedGamepad = navigator.getGamepads()[0]
@@ -108,7 +108,7 @@ class GamepadSystem extends Framer.EventEmitter
                         when 1
                             @loopInterval = 8
                 else
-                    @loopInterval = 1000
+                    @loopInterval = 6000
 
                 @eventsInSequence++
             else
@@ -122,5 +122,3 @@ class GamepadSystem extends Framer.EventEmitter
             @loopRequest = window.requestAnimationFrame @eventLoop.bind(@)
         
         , 1000 / @loopInterval
-
-exports.Gamepad = new GamepadSystem()
