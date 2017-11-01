@@ -1,24 +1,25 @@
 {FocusSystem} = require './FocusSystem.coffee'
-{Broadcaster} = require './Broadcaster.coffee'
 {Focusable} = require './Focusable.coffee'
-{ActionHandler} = require './ActionHandler.coffee'
 {Background} = require './Background.coffee'
+{viewStore} = require './stores/ViewStore.coffee'
+{actionStore} = require './stores/ActionStore.coffee'
 _ = Framer._
 
 # Disable Hints
 Framer.Extras.Hints.disable()
 
-class App extends FlowComponent
+class exports.App extends FlowComponent
 
     constructor: (properties={}) ->
 
-        new Background
+        background = new Background
 
         super _.defaults properties,
             backgroundColor: 'transparent'
         
-        @focusSystem = new FocusSystem(@)
-        @actionHandler = new ActionHandler
+        @focusSystem = new FocusSystem()
+        @background = background
+        @setupTransitionListener()
 
         # Manipulate FlowComponent's ScrollComponent content insets
         @on 'transitionstart', (previousView, nextView, direction) =>
@@ -33,26 +34,12 @@ class App extends FlowComponent
         @on 'transitionend', (previousView, nextView, direction) ->
             sc = @_tempScroll
             sc.content.draggable.enabled = false
-
-    transitionToView: (view, transition) ->
-        if transition
-            @transition(view, transition)
-        else
-            @showNext(view)
         
-        @focusSystem.clearFocusables()
-        @actionHandler.clearActions()
-
-        @actionHandler.viewActions = view.actions
-
-        for child, index in view.descendants
-            if child instanceof Focusable
-                @focusSystem.focusableElements.push child
-
-        if @focusSystem.focusableElements.length
-            @focusSystem.focus @focusSystem.focusableElements[0]
-
-        @emit 'change:view', view
-        Broadcaster.viewTransitionEvent(view)
-
-exports.App = new App()
+        viewStore.transition properties.view
+    
+    setupTransitionListener: ->
+        viewStore.on 'transitionEvent', (transitionEvent) =>
+            if transitionEvent.viewTransition
+                @transition transitionEvent.view, transitionEvent.viewTransition
+            else
+                @showNext transitionEvent.view

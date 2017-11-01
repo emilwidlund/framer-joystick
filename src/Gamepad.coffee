@@ -108,7 +108,7 @@ class exports.GamepadSystem extends Framer.EventEmitter
                         when 1
                             @loopInterval = 8
                 else
-                    @loopInterval = 6000
+                    @loopInterval = 1000
 
                 @eventsInSequence++
             else
