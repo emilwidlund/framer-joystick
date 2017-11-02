@@ -1,9 +1,12 @@
 {FocusSystem} = require './FocusSystem.coffee'
 {Focusable} = require './Focusable.coffee'
 {Background} = require './Background.coffee'
+{Device} = require './Device.coffee'
 {viewStore} = require './stores/ViewStore.coffee'
 {actionStore} = require './stores/ActionStore.coffee'
 _ = Framer._
+
+new Device(1920, 1080)
 
 # Disable Hints
 Framer.Extras.Hints.disable()
@@ -11,7 +14,6 @@ Framer.Extras.Hints.disable()
 class exports.App extends FlowComponent
 
     constructor: (properties={}) ->
-
         background = new Background
 
         super _.defaults properties,
@@ -23,17 +25,12 @@ class exports.App extends FlowComponent
 
         # Manipulate FlowComponent's ScrollComponent content insets
         @on 'transitionstart', (previousView, nextView, direction) =>
-            sc = @_tempScroll
+            sc = @_wrappedLayer nextView
             sc.contentInset = 0
         
-        # Fix freezed state when halting transition
-        @on 'transitionhalt', (previousView, nextView, direction) ->
-            if previousView
-                previousView.visible = false
-        
-        @on 'transitionend', (previousView, nextView, direction) ->
-            sc = @_tempScroll
-            sc.content.draggable.enabled = false
+        @on 'transitionend', (previousView, nextView, direction) =>
+            sc = @_wrappedLayer nextView
+            sc.draggable.enabled = false
         
         viewStore.transition properties.view
     
