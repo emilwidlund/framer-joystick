@@ -8,6 +8,8 @@ Function::define = (prop, desc) ->
 
 class ActionStore extends Framer.EventEmitter
     constructor: ->
+        super()
+        
         @focusableActions = []
         @viewActions = []
 
