@@ -7,6 +7,7 @@
 
 {focusStore} = require './src/stores/FocusStore.coffee'
 {viewStore} = require './src/stores/ViewStore.coffee'
+{actionStore} = require './src/stores/ActionStore.coffee'
 
 joystick =
     App: App
@@ -17,5 +18,6 @@ joystick =
     Grid: Grid
     FocusStore: focusStore
     ViewStore: viewStore
+    ActionStore: actionStore
 
 module.exports = joystick

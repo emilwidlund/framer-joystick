@@ -6,7 +6,7 @@ _ = Framer._
 Function::define = (prop, desc) ->
     Object.defineProperty this.prototype, prop, desc
 
-class ActionStore
+class ActionStore extends Framer.EventEmitter
     constructor: ->
         @focusableActions = []
         @viewActions = []
@@ -41,11 +41,14 @@ class ActionStore
 
     populateFocusableActions: (focusableActions) ->
         @focusableActions = focusableActions
+        @emit 'focusableActionsPopulated', focusableActions
 
     clearFocusableActions: (viewActions) ->
         @focusableActions = []
+        @emit 'focusableActionsCleared'
 
     populateViewActions: (viewActions) ->
         @viewActions = viewActions
+        @emit 'viewActionsPopulated', viewActions
 
 exports.actionStore = new ActionStore
