@@ -5,8 +5,8 @@ class FocusStore extends Framer.EventEmitter
         super()
 
         @focusableElements = []
-        @focusedElement = {}
-        @previouslyFocusedElement = {}
+        @focusedElement = null
+        @previouslyFocusedElement = null
 
     focus: (focusable) ->
 
