@@ -6,7 +6,7 @@
 {actionStore} = require './stores/ActionStore.coffee'
 _ = Framer._
 
-new Device(1920, 1080)
+# new Device(1920, 1080)
 
 # Disable Hints
 Framer.Extras.Hints.disable()
