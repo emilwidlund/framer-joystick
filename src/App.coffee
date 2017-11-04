@@ -25,11 +25,17 @@ class exports.App extends FlowComponent
 
         # Manipulate FlowComponent's ScrollComponent content insets
         @on 'transitionstart', (previousView, nextView, direction) =>
-            sc = @_wrappedLayer nextView
+            if @_wrappedLayer
+                sc = @_wrappedLayer nextView
+            else
+                sc = @_tempScroll
             sc.contentInset = 0
         
         @on 'transitionend', (previousView, nextView, direction) =>
-            sc = @_wrappedLayer nextView
+            if @_wrappedLayer
+                sc = @_wrappedLayer nextView
+            else
+                sc = @_tempScroll
             sc.draggable.enabled = false
         
         viewStore.transition properties.view
