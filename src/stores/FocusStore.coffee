@@ -13,7 +13,7 @@ class FocusStore extends Framer.EventEmitter
         # If an element is focused, set it as previouslyFocused and change state to default
         # Loop through descendant elements and update their states as well
 
-        if Object.keys(@focusedElement).length
+        if @focusedElement
             @previouslyFocusedElement = @focusedElement
             @previouslyFocusedElement.animate 'default'
 
