@@ -51,7 +51,7 @@ class FocusStore extends Framer.EventEmitter
                 if desc.states.focused
                     desc.animate 'default'
         
-        @focusedElement = {}
+        @focusedElement = null
         @emit 'focusedElementCleared'
 
 exports.focusStore = new FocusStore
