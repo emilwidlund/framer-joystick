@@ -3,10 +3,8 @@ _ = Framer._
 Function::define = (prop, desc) ->
     Object.defineProperty this.prototype, prop, desc
 
-class exports.GamepadSystem extends Framer.EventEmitter
-    constructor: (throttle) ->
-
-        super()
+class GamepadSystem extends Framer.EventEmitter
+    constructor: ->
 
         @connectedGamepad = undefined
         @loopRequest = undefined
@@ -17,13 +15,13 @@ class exports.GamepadSystem extends Framer.EventEmitter
         @loopInterval = 500
 
         # Threshold for approved axis values - Values above X will be registered as an input
-        @axisSensitivity = if throttle then .7 else .2
+        @axisSensitivity = .7
 
         # Amount of button events occuring in a sequence
         @eventsInSequence = 0
 
         # Should events be throttled?
-        @throttled = throttle
+        @throttled = true
         
         if navigator.getGamepads()[0]
             @connectedGamepad = navigator.getGamepads()[0]
@@ -122,3 +120,5 @@ class exports.GamepadSystem extends Framer.EventEmitter
             @loopRequest = window.requestAnimationFrame @eventLoop.bind(@)
         
         , 1000 / @loopInterval
+
+exports.Gamepad = new GamepadSystem()
