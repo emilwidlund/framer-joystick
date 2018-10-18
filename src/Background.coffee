@@ -1,4 +1,4 @@
-{viewStore} = require './stores/ViewStore.coffee'
+{Broadcaster} = require './Broadcaster.coffee'
 _ = Framer._
 
 class exports.Background extends Layer
@@ -12,8 +12,8 @@ class exports.Background extends Layer
 
         @gradientLayer = {}
 
-        viewStore.on 'transitionEvent', (transitionEvent) =>
-            @populateBackground(transitionEvent.view.background)
+        Broadcaster.on 'viewTransitionEvent', (view) =>
+            @populateBackground(view.background)
 
     populateBackground: (background) ->
 

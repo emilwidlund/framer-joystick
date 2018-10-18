@@ -1,23 +1,18 @@
 {App} = require './src/App.coffee'
+{FocusSystem} = require './src/FocusSystem.coffee'
 {Focusable} = require './src/Focusable.coffee'
-{GamepadSystem} = require './src/Gamepad.coffee'
+{Gamepad} = require './src/Gamepad.coffee'
 {Transitions} = require './src/Transitions.coffee'
 {View} = require './src/View.coffee'
 {Grid} = require './src/Grid.coffee'
 
-{focusStore} = require './src/stores/FocusStore.coffee'
-{viewStore} = require './src/stores/ViewStore.coffee'
-{actionStore} = require './src/stores/ActionStore.coffee'
-
 joystick =
     App: App
+    FocusSystem: FocusSystem
     Focusable: Focusable
-    Gamepad: new GamepadSystem(false)
+    Gamepad: Gamepad
     Transitions: Transitions
     View: View
     Grid: Grid
-    FocusStore: focusStore
-    ViewStore: viewStore
-    ActionStore: actionStore
 
 module.exports = joystick

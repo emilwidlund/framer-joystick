@@ -1,30 +1,34 @@
-{GamepadSystem} = require './Gamepad.coffee'
-{focusStore} = require './stores/FocusStore.coffee'
+{Gamepad} = require './Gamepad.coffee'
+{Broadcaster} = require './Broadcaster.coffee'
 _ = Framer._
 
-exports.Gamepad = Gamepad = new GamepadSystem(true)
-
 class exports.FocusSystem 
-    constructor: () ->
+    constructor: (app) ->
+
+        @focusableElements = []
+        @focusedElement = {}
+        @previouslyFocusedElement = {}
+
+        @app = app
 
         # Setup event listeners for navigation
         Gamepad.on 'gamepadevent', (event) =>
-            if event.keyCode > 36 && event.keyCode < 41 && focusStore.focusableElements.length
+            if event.keyCode > 36 && event.keyCode < 41 && @focusableElements.length
                 @navigate event.keyCode
-            else if event.keyCode > 11 && event.keyCode < 16 && focusStore.focusableElements.length
+            else if event.keyCode > 11 && event.keyCode < 16 && @focusableElements.length
                 @navigate event.keyCode
 
         window.addEventListener 'keydown', (event) =>
-            if event.keyCode > 36 && event.keyCode < 41 && focusStore.focusableElements.length
+            if event.keyCode > 36 && event.keyCode < 41 && @focusableElements.length
                 @navigate(event.keyCode)
 
     navigate: (keyCode) ->
 
         focusedPosition = 
-            x: focusStore.focusedElement.screenFrame.x + (focusStore.focusedElement.screenFrame.width / 2),
-            y: focusStore.focusedElement.screenFrame.y + (focusStore.focusedElement.screenFrame.height / 2)
+            x: @focusedElement.screenFrame.x + (@focusedElement.screenFrame.width / 2),
+            y: @focusedElement.screenFrame.y + (@focusedElement.screenFrame.height / 2)
 
-        relevantFocusables = _.filter focusStore.focusableElements, (focusable) ->
+        relevantFocusables = _.filter @focusableElements, (focusable) ->
 
             if focusable.parent.parent.visible == false || focusable.parent.parent.opacity == 0 
                 return false
@@ -162,4 +166,46 @@ class exports.FocusSystem
             return score
 		
         if sortedFocusables.length
-            focusStore.focus sortedFocusables[0]
+            @focus sortedFocusables[0]
+	
+    focus: (focusable) ->
+
+        Broadcaster.focusEvent(focusable)
+        @app.emit 'change:focusedElement', focusable
+
+        # If an element is focused, set it as previouslyFocused and change state to default
+        # Loop through descendant elements and update their states as well
+
+        if Object.keys(@focusedElement).length
+            @previouslyFocusedElement = @focusedElement
+            @previouslyFocusedElement.animate 'default'
+
+            @previouslyFocusedElement.descendants.map (desc, index) ->
+                if desc.states.focused
+                    desc.animate 'default'
+        
+        # Focus focusable and change state to focused
+        # Loop through descendant elements and update their states as well
+
+        @focusedElement = focusable
+        @focusedElement.animate 'focused'
+
+        for desc, index in @focusedElement.descendants
+            if desc.states.focused
+                desc.animate 'focused'
+    
+    clearFocusables: ->
+        @focusableElements = []
+        @previouslyFocusedElement = @focusedElement
+        if Object.keys(@focusedElement).length
+            @clearFocused()
+    
+    clearFocused: ->
+        @previouslyFocusedElement = @focusedElement
+        @previouslyFocusedElement.animate 'default'
+
+        @previouslyFocusedElement.descendants.map (desc, index) ->
+            if desc.states.focused
+                desc.animate 'default'
+        
+        @focusedElement = {}
